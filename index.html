@@ -53,19 +53,24 @@
     }
 
     async function mostraKanji() {
-  const filename = kanjiToFilename(parolaCorrente.kanji);
-  const res = await fetch(`kanji/${filename}`);
-  const svgText = await res.text();
-  document.getElementById('svgWrapper').innerHTML = svgText;
+        const filename = kanjiToFilename(parolaCorrente.kanji);
+        const res = await fetch(`kanji/${filename}`);
+        const svgText = await res.text();
+        document.getElementById('svgWrapper').innerHTML = svgText;
 
-  const svgElement = document.querySelector('#svgWrapper svg');
-  svgElement.setAttribute('id', 'kanjiSVG');
+        const svgElement = document.querySelector('#svgWrapper svg');
+        svgElement.removeAttribute('width');
+        svgElement.removeAttribute('height');
+        svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        
+        
+        svgElement.setAttribute('id', 'kanjiSVG');
 
-  new Vivus('kanjiSVG', {
-    type: 'delayed',
-    duration: 200,
-    animTimingFunction: Vivus.EASE
-  });
+        new Vivus('kanjiSVG', {
+            type: 'delayed',
+            duration: 200,
+            animTimingFunction: Vivus.EASE
+        });
 
   document.getElementById('showBtn').style.display = 'none';
   document.getElementById('nextBtn').style.display = 'inline-block';
