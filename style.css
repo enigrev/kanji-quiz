@@ -1,0 +1,94 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 2em 1em;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0;
+  padding-top: 1em;
+  color: #2c3e50;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2em;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.info {
+  font-size: 1.2em;
+  margin: 0.5em 0;
+  word-wrap: break-word;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  margin: 0.5em;
+  width: 100%;
+  max-width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+#kanjiContainer {
+  margin-top: 1.5em;
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.5em; }
+  .info { font-size: 1em; }
+  button { font-size: 0.9em; padding: 0.5em 1em; }
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2em;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* non più space-between */
+  align-items: center;
+  min-height: 70vh;
+}

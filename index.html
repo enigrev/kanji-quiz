@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz Kanji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Quiz di Giapponese</h1>
+  <div class="card">
+  <p class="info"><strong>Italiano:</strong> <span id="italiano"></span></p>
+  <p class="info"><strong>Hiragana:</strong> <span id="hiragana"></span></p>
+
+  <div class="buttons">
+    <button id="showBtn">Mostra</button>
+  </div>
+
+  <div id="kanjiContainer">
+    <div id="svgWrapper"></div>
+    <div class="buttons">
+      <button id="nextBtn" style="display:none;">Avanti</button>
+    </div>
+  </div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/vivus@latest/dist/vivus.min.js"></script>
+  <script>
+    let parole = [];
+    let parolaCorrente = null;
+
+    async function caricaParole() {
+      const res = await fetch('parole.json');
+      parole = await res.json();
+      mostraNuovaParola();
+    }
+
+    function mostraNuovaParola() {
+  parolaCorrente = parole[Math.floor(Math.random() * parole.length)];
+  document.getElementById('italiano').textContent = parolaCorrente.italiano;
+  document.getElementById('hiragana').textContent = parolaCorrente.hiragana;
+  document.getElementById('svgWrapper').innerHTML = ''; // pulisce solo il disegno
+  document.getElementById('showBtn').style.display = 'inline-block';
+  document.getElementById('nextBtn').style.display = 'none';
+}
+
+
+    function kanjiToFilename(kanji) {
+      return formatUnicode(kanji.charCodeAt(0)) + '.svg';
+    }
+
+    function formatUnicode(code) {
+      return code.toString(16).padStart(5, '0');
+    }
+
+    async function mostraKanji() {
+  const filename = kanjiToFilename(parolaCorrente.kanji);
+  const res = await fetch(`kanji/${filename}`);
+  const svgText = await res.text();
+  document.getElementById('svgWrapper').innerHTML = svgText;
+
+  const svgElement = document.querySelector('#svgWrapper svg');
+  svgElement.setAttribute('id', 'kanjiSVG');
+
+  new Vivus('kanjiSVG', {
+    type: 'delayed',
+    duration: 200,
+    animTimingFunction: Vivus.EASE
+  });
+
+  document.getElementById('showBtn').style.display = 'none';
+  document.getElementById('nextBtn').style.display = 'inline-block';
+}
+
+
+    document.getElementById('showBtn').addEventListener('click', mostraKanji);
+    document.getElementById('nextBtn').addEventListener('click', mostraNuovaParola);
+
+    caricaParole();
+  </script>
+</body>
+</html>
