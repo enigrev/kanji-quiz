@@ -158,3 +158,17 @@ button:active {
         font-size: 0.95rem;
     }
 }
+
+.total-count {
+    font-size: 0.9rem;
+    color: #616161;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+#totalCount {
+    font-weight: bold;
+    color: var(--primary-color);
+}
