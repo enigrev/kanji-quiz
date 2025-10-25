@@ -1,10 +1,9 @@
-/* Stile base e ottimizzazione per il mobile */
 :root {
-    --primary-color: #3f51b5; /* Blu Indaco per i bottoni */
-    --secondary-color: #ffc107; /* Giallo Ambra per gli accenti */
-    --background-color: #f0f4f8; /* Grigio chiaro per lo sfondo */
-    --card-background: #ffffff; /* Bianco per le schede */
-    --text-color: #212121; /* Grigio scuro per il testo */
+    --primary-color: #3f51b5; 
+    --secondary-color: #ffc107; 
+    --background-color: #f0f4f8;
+    --card-background: #ffffff;
+    --text-color: #212121;
     --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
     --font-japanese: 'Noto Sans JP', sans-serif;
 }
@@ -13,7 +12,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* Aggiunge un tocco di morbidezza alle transizioni */
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
@@ -21,23 +19,14 @@ body {
     font-family: var(--font-japanese);
     background-color: var(--background-color);
     color: var(--text-color);
-    
-    /* Queste tre righe le avevi già, servono per la centratura orizzontale */
     display: flex;
     flex-direction: column;
     align-items: center; 
-    
-    /* ⭐ NOVITÀ 1: Riempie l'intera altezza dello schermo */
     min-height: 100vh;
-    
-    /* ⭐ NOVITÀ 2: Centra tutti gli elementi figli (h1 e .card) anche verticalmente */
     justify-content: center; 
-    
-    /* padding generale, puoi anche toglierlo se vuoi tutto a bordo schermo */
     padding: 20px;
 }
 
-/* Intestazione */
 h1 {
     font-size: 1.8rem;
     color: var(--primary-color);
@@ -49,24 +38,23 @@ h1 {
     max-width: 400px;
 }
 
-/* Stile della "carta" principale del quiz */
 .card {
     background-color: var(--card-background);
     border-radius: 15px;
     box-shadow: var(--shadow-light);
     padding: 25px 20px;
     width: 100%;
-    max-width: 400px; /* Limita la larghezza su schermi più grandi */
+    max-width: 400px;
     text-align: center;
     margin-bottom: 20px;
+    height: auto;
 }
 
-/* Stile delle informazioni (Italiano/Hiragana) */
 .info {
     font-size: 1.1rem;
     margin: 10px 0;
     padding: 8px;
-    background-color: #e8eaf6; /* Sfondo leggero */
+    background-color: #e8eaf6;
     border-radius: 8px;
     text-align: left;
     line-height: 1.5;
@@ -74,16 +62,14 @@ h1 {
 
 .info strong {
     color: var(--primary-color);
-    min-width: 100px; /* Assicura un allineamento decente */
+    min-width: 100px;
     display: inline-block;
     margin-right: 5px;
 }
 
-/* Contenitore per il Kanji (Disegno SVG) */
 #kanjiContainer {
     margin-top: 20px;
     padding: 15px 0;
-    min-height: 250px; /* Assicura spazio sufficiente anche prima che l'SVG sia caricato */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -91,45 +77,32 @@ h1 {
 }
 
 #svgWrapper {
-    /* Centra l'SVG al suo interno */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    /* Aumenta la dimensione massima del contenitore SVG */
-    max-width: 250px; /* Era 200px, aumentato a 250px */
-    max-height: 250px; /* Era 200px, aumentato a 250px */
+    max-width: 250px;
+    max-height: 250px;
 }
 
-/* Assicurati che l'SVG non superi il suo contenitore */
 #svgWrapper svg {
     max-width: 100%;
     height: auto;
-    /* Colore che si adatti al tema */
     stroke: var(--text-color); 
     fill: none;
     stroke-width: 4px;
 }
 
-/* Stile per ridurre la dimensione dei numeri dei tratti all'interno dell'SVG e renderli visibili */
-#svgWrapper svg g > text, /* Seleziona l'elemento 'text' se è un figlio diretto di un gruppo */
-#svgWrapper svg text { /* Seleziona tutti gli elementi 'text' */
-    /* Imposta una dimensione del font molto piccola per lo smartphone */
+#svgWrapper svg g > text,
+#svgWrapper svg text {
     font-size: 8pt !important; 
-    
-    /* Assicurati che siano riempiti di un grigio chiaro e non abbiano contorno */
-    fill: #a5a5a5 !important; /* Grigio chiaro per discrezione */
-    stroke: none !important; /* Elimina il contorno nero che li rende spessi */
+    fill: #a5a5a5 !important; 
+    stroke: none !important; 
     stroke-width: 0 !important;
-    
-    /* Rimuovi qualsiasi potenziale trasformazione o posizione errata */
     transform: none !important;
-    
-    /* Assicurati che siano disegnati sopra tutto */
     z-index: 10;
 }
 
-/* Contenitore per i bottoni */
 .buttons {
     display: flex;
     justify-content: center;
@@ -138,26 +111,24 @@ h1 {
     width: 100%;
 }
 
-/* Stile dei bottoni (Ottimizzato per il touch) */
 button {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 50px; /* Bottoni a forma di "pillola" */
+    border-radius: 50px;
     padding: 12px 25px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    flex-grow: 1; /* Permette al bottone di espandersi */
-    max-width: 150px; /* Limita la dimensione per un buon touch */
+    flex-grow: 1;
+    max-width: 150px;
 }
 
-/* Effetti al passaggio del mouse/tocco */
 button:hover, button:focus {
-    background-color: #303f9f; /* Tonalità più scura */
+    background-color: #303f9f; 
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px); /* Leggero sollevamento */
+    transform: translateY(-2px); 
     outline: none;
 }
 
@@ -166,17 +137,15 @@ button:active {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Stile specifico per il bottone "Avanti" (se è diverso) */
 #nextBtn {
     background-color: var(--secondary-color);
     color: var(--text-color);
 }
 
 #nextBtn:hover, #nextBtn:focus {
-    background-color: #ffb300; /* Tonalità più scura */
+    background-color: #ffb300;
 }
 
-/* Media Query: Per schermi molto piccoli */
 @media (max-width: 320px) {
     h1 {
         font-size: 1.6rem;
