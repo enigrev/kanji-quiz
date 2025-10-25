@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>Quiz Kanji</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Quiz di Giapponese</h1>
   <div class="card">
-  <p class="info"><strong>Italiano:</strong> <span id="italiano"></span></p>
-  <p class="info"><strong>Hiragana:</strong> <span id="hiragana"></span></p>
-
-  <div class="buttons">
-    <button id="showBtn">Mostra</button>
-  </div>
-
-  <div id="kanjiContainer">
-    <div id="svgWrapper"></div>
+    <p class="info"><strong>Italiano:</strong> <span id="italiano"></span></p>
+    <p class="info"><strong>Hiragana:</strong> <span id="hiragana"></span></p>
     <div class="buttons">
-      <button id="nextBtn" style="display:none;">Avanti</button>
+      <button id="showBtn">Mostra</button>
+    </div>
+
+    <div id="kanjiContainer">
+      <div id="svgWrapper"></div>
+      <div class="buttons">
+        <button id="nextBtn" style="display:none;">Avanti</button>
+      </div>
     </div>
   </div>
-</div>
   <script src="https://cdn.jsdelivr.net/npm/vivus@latest/dist/vivus.min.js"></script>
   <script>
     let parole = [];
@@ -35,13 +35,18 @@
     }
 
     function mostraNuovaParola() {
-  parolaCorrente = parole[Math.floor(Math.random() * parole.length)];
-  document.getElementById('italiano').textContent = parolaCorrente.italiano;
-  document.getElementById('hiragana').textContent = parolaCorrente.hiragana;
-  document.getElementById('svgWrapper').innerHTML = ''; // pulisce solo il disegno
-  document.getElementById('showBtn').style.display = 'inline-block';
-  document.getElementById('nextBtn').style.display = 'none';
-}
+      parolaCorrente = parole[Math.floor(Math.random() * parole.length)];
+      document.getElementById('italiano').textContent = parolaCorrente.italiano;
+      document.getElementById('hiragana').textContent = parolaCorrente.hiragana;
+      document.getElementById('svgWrapper').innerHTML = '';
+
+      const kanjiContainer = document.getElementById('kanjiContainer');
+      kanjiContainer.style.height = '0';
+      kanjiContainer.style.overflow = 'hidden';
+      kanjiContainer.style.padding = '0';
+      document.getElementById('showBtn').style.display = 'inline-block';
+      document.getElementById('nextBtn').style.display = 'none';
+    }
 
 
     function kanjiToFilename(kanji) {
@@ -62,9 +67,12 @@
         svgElement.removeAttribute('width');
         svgElement.removeAttribute('height');
         svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-        
-        
         svgElement.setAttribute('id', 'kanjiSVG');
+        
+        const kanjiContainer = document.getElementById('kanjiContainer');
+        kanjiContainer.style.height = 'auto'; // Lascia che il contenuto detti l'altezza
+        kanjiContainer.style.overflow = 'visible';
+        kanjiContainer.style.padding = '15px 0'; // Ripristina il padding originale
 
         new Vivus('kanjiSVG', {
             type: 'delayed',
